@@ -11,11 +11,11 @@ OUTPUT="/etc/nginx/conf.d/default.conf"
 def config(y):
     yield "  server {"
     yield "    listen 80;"
-    for host in y['Hosts']:
-        hostname = host['Host']
+    for host in y['hosts']:
+        hostname = host['host']
         yield "    if ($http_host = {}) {{".format(hostname)
-        for p in host['Patterns']:
-            yield "      rewrite {} {} permanent;".format(p['From'], p['To'])
+        for p in host['patterns']:
+            yield "      rewrite {} {} permanent;".format(p['from'], p['to'])
         yield "    }"
     yield "  }"
 
