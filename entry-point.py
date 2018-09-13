@@ -9,21 +9,20 @@ INPUT="/etc/nginx-redirect/config.yaml"
 OUTPUT="/etc/nginx/conf.d/default.conf"
 
 def config(y):
-    yield "  server {"
-    yield "    listen 80;"
-    for host in y['hosts']:
+    yield "server {"
+    yield "  listen 80;"
+    for host in y:
         hostname = host['host']
-        yield "    if ($http_host = {}) {{".format(hostname)
+        yield "  if ($http_host = {}) {{".format(hostname)
         for p in host['patterns']:
-            yield "      rewrite {} {} permanent;".format(p['from'], p['to'])
-        yield "    }"
-    yield "  }"
+            yield "    rewrite {} {} permanent;".format(p['from'], p['to'])
+        yield "  }"
+    yield "}"
+    yield ""
 
 def genconfig(instr, outstr):
     y = yaml.load(instr)
     data = "\n".join(config(y))
-    print("Configuration file is")
-    print(data)
     outstr.write(data)
 
 if __name__ =='__main__':

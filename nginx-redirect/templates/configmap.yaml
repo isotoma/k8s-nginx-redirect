@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+name: {{ template "nginx-redirect.fullname" . }}
+data:
+  hosts:
+{{ toYaml .Values.hosts | indent 4 }}

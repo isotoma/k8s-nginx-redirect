@@ -19,10 +19,20 @@ spec:
         app: {{ template "nginx-redirect.name" . }}
         release: {{ .Release.Name }}
     spec:
+      volumes:
+        - name: config-vol
+          configMap:
+            name: {{ template "nginx-redirect.fullname" . }}
+            items:
+              - key: hosts
+                path: config.yaml
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: config-vol
+              mountPath: /etc/nginx-redirect
           ports:
             - name: http
               containerPort: 80
