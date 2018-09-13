@@ -4,6 +4,14 @@
 
 replicaCount: 1
 
+hosts: []
+# - host: foo.example.com
+#   patterns:
+#   - from: "^/$"
+#     to: "https://bar.example.com/"
+#   - from: "^/([^/]+)$"
+#     to: "https://$1.example.com/"
+
 image:
   repository: isotoma/k8s-nginx-redirect
   tag: stable
