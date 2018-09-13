@@ -15,7 +15,7 @@ hosts: []
 image:
   repository: isotoma/k8s-nginx-redirect
   tag: stable
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   type: ClusterIP
